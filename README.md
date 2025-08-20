@@ -1,5 +1,3 @@
-# Hive
-
 # Hive Parameter Tuning for Tez Engine
 
 This repository documents experiments and best practices for tuning **Apache Hive queries running on the Tez execution engine**. The focus is on reducing memory wastage, improving execution time, and balancing container size, reducers, and mappers.
