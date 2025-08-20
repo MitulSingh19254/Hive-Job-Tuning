@@ -4,41 +4,11 @@ This repository documents experiments and best practices for tuning **Apache Hiv
 
 ## Background
 
-- Workloads tested involve **ETL-style Hive jobs** with data sizes ranging from **160GB to 400GB**.
+- Workloads tested involve **ETL-style Hive jobs** with data size of more than **4TB**.
 - Each job had a **time SLA** (e.g., completion under 25–30 minutes).
-- Default settings led to excessive memory requests (up to **43TB**) with only ~50% utilization.
+- Default settings led to excessive memory requests (up to **50TB**) with only ~50% utilization.
 
-Through parameter tuning, we brought memory usage down to **~3.7TB** with much higher efficiency and without exceeding SLA.
-
----
-
-## Key Parameters Tuned
-
-### Reducers
-- `hive.exec.reducers.max`
-- `mapred.reduce.tasks`
-- `hive.exec.reducers.bytes.per.reducer`
-
-👉 Balancing reducer count is crucial. Too few reducers → slower jobs; too many → resource overhead.
-
-### Containers & Memory
-- `hive.tez.container.size`
-- `tez.task.resource.memory.mb`
-- `tez.am.resource.memory.mb`
-
-👉 Reducing container size drastically cuts requested memory, but going too low risks **vertex failure**.
-
-### Grouping / Mappers
-- `tez.grouping.min-size`
-- `tez.grouping.max-size`
-
-👉 Decreasing grouping size increases mapper count → better parallelism → faster execution, but increases memory demand.
-
-### Joins & Optimizations
-- `hive.auto.convert.join`
-- `hive.optimize.skewjoin`
-- `hive.vectorized.execution.reduce.enabled`
-- `hive.cbo.enable`
+Through parameter tuning, we brought memory usage down to **~7TB** with much higher efficiency and without exceeding SLA.
 
 ---
 
@@ -47,6 +17,6 @@ Through parameter tuning, we brought memory usage down to **~3.7TB** with much h
 ### Initial (Inefficient)
 ```sql
 SET hive.exec.reducers.max=50;
-SET hive.tez.container.size=12288;
-SET tez.task.resource.memory.mb=6144;
-SET tez.am.resource.memory.mb=12288;
+SET hive.tez.container.size=15360;
+SET tez.task.resource.memory.mb=7168;
+SET tez.am.resource.memory.mb=15360;
