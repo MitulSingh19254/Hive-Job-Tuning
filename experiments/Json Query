@@ -1,1 +1,1 @@
-select get_json_object(col,'$\[0].col2')
+select get_json_object(col1,'$\[0].col2')
