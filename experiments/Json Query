@@ -1,3 +1,1 @@
-
-select as7, partition_date, get_json_object(as5,'$\[0].XJL57'), get_json_object(as5,'$\[0].XJL18'), get_json_object(as5,'$\[0].XJL8'), get_json_object(as5,'$\[0].XJL14'), count(case when name='XJLE32' then t.di8 end) AS total_views, count(distinct(case when name='XJLE32' then t.di8 end)) AS unique_views, count(case when name='XJLE33' then t.di8 end) AS total_clicks, count(distinct(case when name='XJLE33' then t.di8 end)) AS unique_clicks  from devices.dc_stb_raw_po t where as7='43.0.00.00.14' and partition_date = '2024-07-23' and get_json_object(as5,'$\[0].XJL57')='1' and get_json_object(as5,'$\[0].XJL18')='Applications' and get_json_object(as5,'$\[0].XJL8')='1' and get_json_object(as5,'$\[0].XJL14')='Jiotv+' group by as7, partition_date, get_json_object(as5,'$\[0].XJL57'), get_json_object(as5,'$\[0].XJL18'), get_json_object(as5,'$\[0].XJL8'), get_json_object(as5,'$\[0].XJL14');
- 
+select get_json_object(col,'$\[0].col2')
